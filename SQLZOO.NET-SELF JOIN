@@ -28,3 +28,31 @@ WHERE stopa.name='Craiglockhart'AND stopb.name='London Road';
 
 triple join. a.stop=stopa.id means to match the id on the two tables where id and stop contains the same numbers.
 
+7, similar to 6
+select distinct a.company, a.num
+from route a
+join route b on a.company=b.company and a.num=b.num
+join stops c on c.id=a.stop
+join stops d on d.id=b.stop
+where c.name='Haymarket' and d.name='Leith'
+
+8, also similar
+select a.company, a.num
+from route a
+join route b on a.company=b.company and a.num=b.num
+join stops c on c.id=a.stop
+join stops d on d.id=b.stop
+where c.name='Craiglockhart' and d.name='Tollcross'
+
+9, 
+select distinct c.name, a.company, a.num
+from route a
+join route b on a.company=b.company and a.num=b.num
+join stops c on c.id=a.stop
+join stops d  on d.id=b.stop
+where d.name= 'Craiglockhart';
+
+#distinct c.name and where d.name, or distinct d.name and where c.name. cant be the same. 
+
+10,
+
