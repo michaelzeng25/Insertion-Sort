@@ -5,3 +5,16 @@ limit 1;
 select CITY,length(CITY) from station
 order by length(CITY) desc, CITY 
 limit 1;
+
+
+Weather Observation Station 8
+/*
+substr- for example, city name is washintong, substr(city, 1,2) this gives 2 char from the city washintong start from the first position,
+and the answer is wa.
+*/
+select distinct(city)
+from station
+where 
+substr(city,1,1) in ('A','E','I','O','U') 
+and 
+substr(city,-1,1) in ('A','E','I','O','U'); 
