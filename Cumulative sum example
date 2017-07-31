@@ -1,0 +1,16 @@
+name     category    position
+apple     fruit        5
+apple      red         3
+melon      big       null
+
+to 
+
+
+name     category    position
+apple      red         3
+melon      big        null
+
+
+select t.*
+from t
+where coalesce(t.position, -1) = (select min(coalesce(t2.position, -1))from t t2where t2.name = t.name);
