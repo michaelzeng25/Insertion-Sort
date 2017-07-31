@@ -1,0 +1,22 @@
+say
+
+id    name     score
+1   michael     2
+1   wendy      3
+2     jack      4
+
+to have the result
+id    name     score
+1   michael     2
+1   wendy       5
+2     jack      4
+
+id 1 has its score added up
+
+
+select t.*, @sumit:=if(@id = t.id, @sumit + t.score, t.score) as Cum_sum_score, @id:=t.id as id-copy
+from table t
+join (select @sumit:=0, @id:='')b
+
+
+problem: have to also select this one, "@id:=t.id as id-copy", or it wont work
