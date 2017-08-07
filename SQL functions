@@ -1,0 +1,36 @@
+1, 
+To sum values that belong to the same category, and start from a certain value if the category changed.
+example:
+id  total category   target
+1     10      a         10
+1     11      a         21
+2     20      b         20
+2     22      b         42
+set @sumit:=0;
+set @id:='';
+select t.*, @sumit:=if(@id = t.id, @sumit + t.score, t.score) as Cum_sum_score, @id:=t.id as id-copy
+from table t
+
+problem: have to also select this one, "@id:=t.id as id-copy", or it wont work
+
+
+
+
+2 
+pick a certain vlaue if it is belong to the same category
+example:
+name     category    position
+apple     fruit        5
+apple      red         3
+melon      big       null
+
+to 
+
+name     category    position
+apple      red         3
+melon      big        null
+
+select t.*
+from t
+where coalesce(t.position, -1) = (select min(coalesce(t2.position, -1))from t t2where t2.name = t.name);
+
