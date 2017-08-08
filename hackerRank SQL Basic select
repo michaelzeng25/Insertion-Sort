@@ -38,6 +38,7 @@ substr(city,-1,1) in ('A','E','I','O','U');
 
 
 
+
 Weather Observation Station 9
 /*
 Enter your query here.
@@ -53,6 +54,8 @@ where substr(city,1,1) not in ('A','E','I','O','U');
 
 
 
+
+
 Weather Observation Station 10
 select distinct(city)
 from station
@@ -62,6 +65,8 @@ where city REGEXP '[^aeiou]$';
 select distinct(city)
 from station
 where substr(city,-1,1) not in ('A','E','I','O','U'); 
+
+
 
 
 Weather Observation Station 11
@@ -76,3 +81,14 @@ from station
 where city regexp '^[^aeiou$]'
 or
 city regexp '[^aeiou]$';
+
+
+
+
+
+Higher Than 75 Marks
+select name from students
+where marks>75
+order by right(name,3), id asc;
+note: it is just order by in order
+
