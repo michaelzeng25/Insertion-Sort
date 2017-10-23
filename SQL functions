@@ -8,7 +8,7 @@ id  total category   target
 2     22      b         42
 set @sumit:=0;
 set @id:='';
-select t.*, @sumit:=if(@id = t.id, @sumit + t.score, t.score) as Cum_sum_score, @id:=t.id as id-copy
+select t.*, @sumit:=if(@id = t.id, @sumit + t.total, t.total) as Cum_sum_score, @id:=t.id as id-copy
 from table t
 
 problem: have to also select this one, "@id:=t.id as id-copy", or it wont work
