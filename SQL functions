@@ -12,6 +12,7 @@ select t.*, @sumit:=if(@id = t.id, @sumit + t.total, t.total) as Cum_sum_score, 
 from table t
 
 problem: have to also select this one, "@id:=t.id as id-copy", or it wont work
+-- maybe put where @id:=t.id. 10/23/17
 
 
 
