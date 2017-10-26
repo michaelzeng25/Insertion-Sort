@@ -39,3 +39,4 @@ First, is 5=3? no, is 3=3? yes, then print the first line - apple      red      
 then, is -1 =-1? yes then print the second line  melon      big        null ; 
 (does not matter -1 or other numbers, it just look for a match if both are null from the table)
 
+problem:if i have 2 rows of apple      red        3
