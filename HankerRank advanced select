@@ -15,12 +15,12 @@ create function myf(a int, b int, c int) returns varchar(55) deterministic
 begin
 declare name varchar(55);
 if a=b and a=c then set name='Equilateral';
-else if (a=b and a+b>c) or (a=c and a+c>b)  or (b=c and b+c>a)  then set name= 'Isosceles';
-else if a+b<=c or a+c<=b or b+c<=a then set name='Not A Triangle';
+elseif (a=b and a+b>c) or (a=c and a+c>b)  or (b=c and b+c>a)  then set name= 'Isosceles';
+elseif a+b<=c or a+c<=b or b+c<=a then set name='Not A Triangle';
 else set name='Scalene';
 end if;
 return(name);
-end //
+end//
 delimiter ;
 
 select myf(a,b,c) from TRIANGLES;
