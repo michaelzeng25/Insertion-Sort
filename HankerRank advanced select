@@ -24,3 +24,27 @@ end//
 delimiter ;
 
 select myf(a,b,c) from TRIANGLES;
+
+
+
+
+2, The PADS
+
+select a.* 
+from
+(
+select concat(name, '(',left(occupation,1),')') 
+from OCCUPATIONS order by name limit 10000
+)a
+
+union
+
+select b.* 
+from
+(
+select concat('There are a total of ',a.cnt,' ',lower(a.occupation),'s.') 
+from  (select  occupation, count(occupation)as cnt from OCCUPATIONS group by occupation order by count(occupation) , occupation)a
+)b;
+
+Without using limit in the first query, the order by will have no affect.
+read here: https://dev.mysql.com/doc/refman/5.7/en/union.html
