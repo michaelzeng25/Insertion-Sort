@@ -48,3 +48,39 @@ from  (select  occupation, count(occupation)as cnt from OCCUPATIONS group by occ
 
 Without using limit in the first query, the order by will have no affect.
 read here: https://dev.mysql.com/doc/refman/5.7/en/union.html
+
+
+
+
+3, Occupation
+
+select min(b.Doctor), min(b.Professor),min(b.Singer),min(b.Actor)
+from
+(
+select 
+case 
+when Occupation ='Doctor' then (@a:=@a+1)
+when Occupation ='Professor' then (@b:=@b+1) 
+when Occupation ='Singer' then (@c:=@c+1)
+when Occupation ='Actor' then (@d:=@d+1)
+end as index1,
+case 
+when Occupation ='Doctor' then name 
+end as Doctor,
+case 
+when Occupation ='Professor' then name 
+end as Professor,
+case 
+when Occupation ='Singer' then name 
+end as Singer,
+case 
+when Occupation ='Actor' then name 
+end as Actor
+from 
+OCCUPATIONS 
+join(select @a:=0, @b:=0,@c:=0,@d:=0 ) w
+order by name
+)b 
+group by index1;
+
+a very good practice in using variables.
