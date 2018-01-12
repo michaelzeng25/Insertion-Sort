@@ -1,0 +1,17 @@
+1, Placements
+
+select s.Name
+from Students s
+join Friends f on s.id = f.id
+join Packages p1 on p1.id=f.id
+join Packages p2 on p2.id=f.Friend_id
+where p2.Salary > p1.salary
+order by p2.salary
+
+/*
+1, connect the srtudents and friends table using their id
+2, find the salary of the student using student id
+3, find the salary of the student's friend using friend id
+4, compare the salary
+5, order as required
+*/
