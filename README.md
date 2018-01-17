@@ -1,3 +1,10 @@
-Practice your SQL skill: http://sqlzoo.net/wiki/SQL_Tutorial
+Practice your SQL skill:
+
+
+SQLzoo:
+http://sqlzoo.net/wiki/SQL_Tutorial
+
+HackerRank:
+https://www.hackerrank.com/domains/sql/select
 
 
