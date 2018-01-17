@@ -37,4 +37,5 @@ p1.x<p1.y is important because we have choosen the 2 symmertric pairs. so this c
 (p1.x<p2.x is also fine)
 
 the second section will make sure to return those symmertric pairs that are the same numbers, like 20,20 and 20,20
+
 */
