@@ -15,3 +15,26 @@ order by p2.salary
 4, compare the salary
 5, order as required
 */
+
+
+
+
+2, Symmetric Pairs
+
+select p1.x, p1.y from Functions p1, Functions p2
+where p1.x =p2.y and p1.y = p2.x and p1.x<p1.y
+
+union all
+
+select p1.x, p1.y from Functions p1 
+where p1.x=p1.y group by p1.x,p1.y
+having count(*) >1
+order by x asc
+
+/*
+the first section: find symmertic paris by using self-join and compare the value between x1 and y2, x2 and y1.
+p1.x<p1.y is important because we have choosen the 2 symmertric pairs. so this code here will make sure it only return 1 pair
+(p1.x<p2.x is also fine)
+
+the second section will make sure to return those symmertric pairs that are the same numbers, like 20,20 and 20,20
+*/
