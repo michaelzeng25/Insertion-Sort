@@ -39,3 +39,54 @@ p1.x<p1.y is important because we have choosen the 2 symmertric pairs. so this c
 the second section will make sure to return those symmertric pairs that are the same numbers, like 20,20 and 20,20
 
 */
+
+
+
+3, projects
+
+
+select c.start_date, c.end_date
+from
+(
+  select start_date, min(end_date)as end_date, (min(end_date) - start_date) as cnt
+  from 
+  ( 
+    select start_date from Projects where start_date not in (select end_date from Projects )
+  )a,
+  ( 
+    select end_date from Projects where End_date not in (select start_date from Projects ) 
+  )b
+    
+where start_date < end_date
+group by start_date
+)c
+order by c.cnt , c.start_date
+
+/*
+The 2 subqueries a and b give the start and end date of each project
+start_date < end_date will make sure each start date will end up with the right end date whithin each project
+group by, along with min(end_date), will give the correct end date of that project.
+
+*/
+
+## or
+
+SET sql_mode = ''; -- group by start_date will not work without this
+select start_date, min(end_date)as end_date
+from 
+(
+select start_date from Projects where start_date not in (select end_date from Projects ) 
+)a,
+(
+select end_date  from Projects where End_date not in (select start_date from Projects ) 
+)b 
+where start_date < end_date
+group by start_date
+order by datediff(end_date, start_date) , start_date
+
+/*
+here, group by and datediff will not work without sql_mode.
+same idea but shorter code.
+datediff give the difference of the given dates. 2015 , 2010 the difference will be 5
+
+*/
