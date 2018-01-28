@@ -56,15 +56,19 @@ from
   ( 
     select end_date from Projects where End_date not in (select start_date from Projects ) 
   )b
-    
-where start_date < end_date
-group by start_date
+  where start_date < end_date
+  group by start_date
 )c
 order by c.cnt , c.start_date
 
 /*
+The join between the subqueries a and b will procude a cartasian product, say a=4 rows and b= 5 rows,
+each row in a will join each row in b once. thus produce a 4x5=20 rows table
+
 The 2 subqueries a and b give the start and end date of each project
+
 start_date < end_date will make sure each start date will end up with the right end date whithin each project
+
 group by, along with min(end_date), will give the correct end date of that project.
 
 */
@@ -86,7 +90,12 @@ order by datediff(end_date, start_date) , start_date
 
 /*
 here, group by and datediff will not work without sql_mode.
+
 same idea but shorter code.
+
+group by will keep the minimum end day for each start day in the same project.
+
+
 datediff give the difference of the given dates. 2015 , 2010 the difference will be 5
 
 */
