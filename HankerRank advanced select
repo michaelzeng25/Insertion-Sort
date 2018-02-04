@@ -84,3 +84,20 @@ order by name
 group by index1;
 
 a very good practice in using variables.
+
+
+
+4, Binary tree node
+
+select n, 'Leaf' from BST where n not in (select p from BST where p is not null)
+union
+select n, 'Inner' from BST where n in (select p from BST) and p is not null
+union
+select n, 'Root' from BST where p is null
+order by n
+
+/*
+The code is pretty obvious.
+all the leaf node will not be in the 'p' column.
+and in the 'p' column, the one that is null is the root, and the rests are inner.
+*/
