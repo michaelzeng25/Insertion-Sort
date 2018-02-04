@@ -96,8 +96,23 @@ union
 select n, 'Root' from BST where p is null
 order by n
 
+or (inspired by other coders)
+
+SELECT N, 
+case 
+when p is null then 'Root'
+when (SELECT COUNT(*) FROM BST WHERE P=B.N)>0 then 'Inner'
+else 'Leaf'
+end
+FROM BST B 
+ORDER BY N;
+
+
 /*
 The code is pretty obvious.
 all the leaf node will not be in the 'p' column.
 and in the 'p' column, the one that is null is the root, and the rests are inner.
+
+"SELECT COUNT(*) FROM BST WHERE P=B.N)>0 " - leaf nodes only exist in n not in p.
+
 */
