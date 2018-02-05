@@ -116,3 +116,55 @@ and in the 'p' column, the one that is null is the root, and the rests are inner
 "SELECT COUNT(*) FROM BST WHERE P=B.N)>0 " - leaf nodes only exist in n not in p.
 
 */
+
+
+
+5, New companies
+select 
+c.company_code, c.founder, a.cnt, a2.cnt, a3.cnt, a4.cnt
+from Company c
+join
+( select company_code, count(distinct lead_manager_code) as cnt from Lead_Manager group by company_code )a
+on c.company_code = a.company_code
+join
+( select company_code, count(distinct Senior_Manager_code) as cnt from Senior_Manager group by company_code)a2
+on a.company_code = a2.company_code
+
+join
+( select company_code, count(distinct manager_code) as cnt from Manager group by company_code)a3
+on a2.company_code = a3.company_code
+
+join
+( select company_code, count(distinct Employee_code) as cnt from Employee group by company_code)a4
+on a3.company_code = a4.company_code
+
+order by c.company_code asc
+
+/*
+must use distinct or many dup will be counted because of the joins
+*/
+
+
+or (inspired by other coders work)
+
+
+
+set sql_mode='';
+select 
+c.company_code, c.founder, count(distinct l.lead_manager_code), count(distinct s.senior_manager_code), 
+count( distinct m.manager_code), count(distinct e.employee_code)
+from Company c, Lead_Manager l, Senior_Manager s, Manager  m, Employee e
+where c.company_code = l.company_code
+and l.company_code = s.company_code
+and s.company_code = m.company_code
+and m.company_code = e.company_code
+group by c.company_code
+order by c.company_code asc
+
+
+/*
+again, the group by will not work without set sql_mode because c.founder
+*/
+
+
+
