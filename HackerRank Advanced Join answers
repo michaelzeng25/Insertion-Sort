@@ -99,3 +99,48 @@ group by will keep the minimum end day for each start day in the same project.
 datediff give the difference of the given dates. 2015 , 2010 the difference will be 5
 
 */
+
+
+
+
+4, Interviews
+
+set sql_mode="";
+select  cot.contest_id, cot.hacker_id, cot.name, s4.ts, s4.tas, s4.tv, s4.tus
+from Contests cot
+join
+( 
+    select col.contest_id, sum(s1.ts) ts, sum(s1.tas)tas, sum(s2.tv)tv, sum(s2.tus)tus
+    from Colleges col
+    join 
+    (
+        select cha.college_id,  sum(ss.total_submissions)as ts, sum(ss.total_accepted_submissions) as tas
+        from Challenges cha
+        left join Submission_Stats ss on ss.challenge_id = cha.challenge_id
+		    group by cha.college_id
+    )s1
+    on s1.college_id= col.college_id
+    join
+    (
+		    select cha.college_id,   sum(vs.total_views)as tv, sum(vs.total_unique_views) as tus
+        from Challenges cha
+        join View_Stats vs on vs.challenge_id = cha.challenge_id
+		    group by cha.college_id
+    )s2
+    on s2.college_id = col.college_id
+    group by col.contest_id
+    
+)s4 
+on cot.contest_id = s4.contest_id
+order by cot.contest_id
+
+
+/*
+1, s1 sums up the submissions, and the left join is because one of the challenge id from a college id is not 
+in the submission table. So, without this left join, one of the college id will not be included when doing
+the join with s2.
+
+2, you then need to find the contest id from college table(cant use college id since some contest id have >1 college id).
+3, s4 gives all the sums, and then just simply join it with the contests table.
+
+*/
