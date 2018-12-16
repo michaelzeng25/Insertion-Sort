@@ -55,4 +55,29 @@ where d.name= 'Craiglockhart';
 #distinct c.name and where d.name, or distinct d.name and where c.name. cant be the same. 
 
 10,
+select distinct t1.num, t1.company, a.name, t2.num, t2.company
+from
+	(
+	select a.num, a.company, b.stop
+	from route a join route b on (a.company=b.company AND a.num=b.num)
+	where a.stop =  (select id from stops where name = 'Craiglockhart')
+	) t1
+join
+	(
+	select a.num, a.company, b.stop
+	from route a join route b on (a.company=b.company AND a.num=b.num)
+	where a.stop = (select id from stops where name = 'Sighthill')
+	) t2 
+on t1.stop = t2.stop
+join stops a on a.id = t1.stop
 
+Explanation:
+Find all the stops that can tranfer to either A or B.
+
+The first subquery return all the stops of the busses(num+company) which passengers can transfer to A
+The second subquery return those that can transfer to B
+then these 2 tables are joined by the stops that can transfer to both A or B
+In the end, join the stops table to get the name of those stops.
+
+The result table will contain the name of the first bus and second bus, and the name of the stop the passengers can transfer to
+stop A or B.
